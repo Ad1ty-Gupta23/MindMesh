@@ -10,6 +10,7 @@ import Dashboard from './pages/dashboard'
 import AIMentalWellnessApp from './pages/Aiwellness'
 import GamesHub from './pages/Games'
 import CosmicDefender from './components/CosmicDefender'
+import Game from './pages/game1'
 function App() {
  
 
@@ -26,6 +27,7 @@ function App() {
         <Route path="/wellness" element={<AIMentalWellnessApp/>}></Route>
         <Route path="/games" element={<GamesHub />}></Route>
          <Route path="/cosmic" element={<CosmicDefender />}></Route>
+         <Route path="/fruit" element={<Game />}></Route>
         </Routes>
     </BrowserRouter>
     </HabitBlockchainProvider>
