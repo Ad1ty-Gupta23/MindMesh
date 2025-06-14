@@ -4,6 +4,7 @@ import { db } from '../utils/firebase';
 import { doc, getDoc, setDoc, updateDoc, addDoc, collection } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../utils/firebase';
+import Navbar from '../components/Navbar';
 
 const AIMentalWellnessApp = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -278,7 +279,8 @@ const AIMentalWellnessApp = () => {
   const level = Math.floor(userStats.xpPoints / 100) + 1;
   const xpToNextLevel = 100 - (userStats.xpPoints % 100);
 
-  return (
+  return (<>
+  <Navbar />
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-indigo-100">
       {/* Header */}
       <div className="bg-white/80 backdrop-blur-sm border-b border-indigo-200 sticky top-0 z-10">
@@ -540,6 +542,7 @@ const AIMentalWellnessApp = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

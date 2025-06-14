@@ -71,7 +71,7 @@ function Navbar() {
     if (user.displayName) return user.displayName;
     if (user.email) return user.email.split("@")[0];
     
-    return "User";
+    return "Volunteer";
   };
 
   return (
@@ -86,9 +86,39 @@ function Navbar() {
             </Link>
           </div>
 
-          {/* Token Display */}
-          {account && (
-            <div className="flex items-center">
+          {/* Navigation Links - Only visible when logged in */}
+          {isLoggedIn && (
+            <nav className="hidden md:flex items-center space-x-8">
+              <Link 
+                to="/usedash" 
+                className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              >
+                Dashboard
+              </Link>
+              <Link 
+                to="/wellness" 
+                className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              >
+                Journal
+              </Link>
+              <Link 
+                to="/meditate" 
+                className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              >
+                Meditation
+              </Link>
+              <Link 
+                to="/profile" 
+                className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              >
+                Profile
+              </Link>
+            </nav>
+          )}
+
+          <div className="flex items-center space-x-4">
+            {/* Token Display - Only visible when logged in and wallet connected */}
+            {isLoggedIn && account && (
               <div className="flex items-center space-x-2 px-3 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg shadow-md">
                 <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -98,50 +128,50 @@ function Navbar() {
                 <span className="font-medium">{userData?.earnedTokensFormatted ?? 0}</span>
                 <span className="text-xs">Tokens</span>
               </div>
-            </div>
-          )}
-
-          {/* Wallet Section */}
-          <div className="flex items-center">
-            {account ? (
-              <div className="flex items-center space-x-2 px-3 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg">
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span className="text-xs font-medium">
-                  {account.slice(0, 6)}...{account.slice(-4)}
-                </span>
-              </div>
-            ) : (
-              <button
-                onClick={handleConnectWallet}
-                disabled={isLoading}
-                className="flex items-center space-x-2 px-4 py-2 text-sm font-medium bg-gradient-to-r from-orange-500 to-amber-600 text-white rounded-lg hover:from-orange-600 hover:to-amber-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-              >
-                {isLoading ? (
-                  <>
-                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    <span>Connecting...</span>
-                  </>
-                ) : (
-                  <>
-                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
-                    <span>Connect Wallet</span>
-                  </>
-                )}
-              </button>
             )}
-          </div>
 
-          {/* User Section */}
-          <div className="flex items-center space-x-4 ml-4">
+            {/* Wallet Section - Only visible when logged in */}
+            {isLoggedIn && (
+              <div className="flex items-center">
+                {account ? (
+                  <div className="flex items-center space-x-2 px-3 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg">
+                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span className="text-xs font-medium">
+                      {account.slice(0, 6)}...{account.slice(-4)}
+                    </span>
+                  </div>
+                ) : (
+                  <button
+                    onClick={handleConnectWallet}
+                    disabled={isLoading}
+                    className="flex items-center space-x-2 px-4 py-2 text-sm font-medium bg-gradient-to-r from-orange-500 to-amber-600 text-white rounded-lg hover:from-orange-600 hover:to-amber-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  >
+                    {isLoading ? (
+                      <>
+                        <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span>Connecting...</span>
+                      </>
+                    ) : (
+                      <>
+                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        <span>Connect Wallet</span>
+                      </>
+                    )}
+                  </button>
+                )}
+              </div>
+            )}
+
+            {/* User Section */}
             {isLoggedIn ? (
-              <>
+              <div className="flex items-center space-x-4">
                 <div className="flex items-center space-x-2">
                   <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-medium">
                     {getDisplayName().charAt(0).toUpperCase()}
@@ -156,9 +186,9 @@ function Navbar() {
                 >
                   Logout
                 </button>
-              </>
+              </div>
             ) : (
-              <>
+              <div className="flex items-center space-x-4">
                 <Link 
                   to="/login" 
                   className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-indigo-600 transition-colors"
@@ -171,7 +201,7 @@ function Navbar() {
                 >
                   Sign Up
                 </Link>
-              </>
+              </div>
             )}
           </div>
         </div>
