@@ -1,0 +1,82 @@
+=== Trifocus Q&A Knowledge Base ===
+
+[Platform Basics]
+Q: What makes Trifocus different from Headspace/Calm?
+A: We combine 3 unique elements:
+1. Token rewards for PROVEN habits (via eye-tracking)
+2. Your data stays OWNED by you (IPFS + encryption)
+3. AI that adapts to your mood in real-time
+
+[Accountability System]
+Q: How does staking work?
+A: 
+1. Lock tokens when starting a habit (e.g., 10 tokens for 7-day meditation)
+2. Complete sessions with biometric verification
+3. Earn tokens + bonuses if successful, lose stake if you quit
+
+Q: Can I fake meditation sessions?
+A: Impossible - we use:
+- Real-time eye-tracking (camera checks closed eyes)
+- Voice stress analysis for journaling
+- Device-only processing (no cheating via screenshots)
+
+[Privacy]
+Q: Where is my meditation/journal data stored?
+A: 
+- Biometrics: Never leaves your device
+- Journals: Encrypted on IPFS (you hold decryption keys)
+- Blockchain: Only stores proof hashes, not content
+
+[Therapist Access]
+Q: How do therapist sessions work?
+A: 
+1. Earn tokens through habits
+2. Browse KYC-verified therapists
+3. Pay directly with tokens (smart contract holds payment until session completes)
+
+[Crisis Support]
+Q: What if the AI detects I'm in danger?
+A: 
+1. Immediate crisis resources shown
+2. OPTIONAL emergency contact alert (you pre-set this)
+3. Anonymous helpline routing available
+
+[Tech Specs]
+Q: What chains/wallets are supported?
+A: 
+- EVM chains: Holesky (testnet), Polygon (mainnet)
+- WalletConnect + MetaMask support
+- Gasless transactions via Biconomy
+
+[Getting Started]
+Q: I'm new to crypto - is this complicated?
+A: Not at all! We offer:
+- Fiat onboarding (credit card -> tokens)
+- Tutorial wallet setup
+- No gas fees for first month
+
+[Data Control]
+Q: Can I delete my data permanently?
+A: Yes! Unlike traditional apps:
+- Burn your encryption keys = permanent erasure
+- On-chain proof deletion via zero-knowledge tech
+
+[Future Features]
+Q: What's coming next?
+A: 
+- Anonymous group therapy (zkSNARKs)
+- Wearable integration (EEG mood tracking)
+- Multi-chain reward system
+
+=== Sample User Concerns ===
+User: "I don't want my employer seeing my therapy logs"
+Bot: All records are encrypted with your keys. You can:
+1. Share anonymized proofs only
+2. Use temporary access links
+3. Store nothing on-chain except hashes
+
+User: "How do I know therapists are legit?"
+Bot: Our verification includes:
+✅ License checks
+✅ On-chain reputation scores
+✅ Session dispute resolution via DAO
