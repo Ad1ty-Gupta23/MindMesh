@@ -9,6 +9,7 @@ import EyeDetectionTimer from './components/EyeMonitor'
 import Dashboard from './pages/dashboard'
 import AIMentalWellnessApp from './pages/Aiwellness'
 import GamesHub from './pages/Games'
+import CosmicDefender from './components/CosmicDefender'
 function App() {
  
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/usedash" element={<Dashboard/>}></Route>
         <Route path="/wellness" element={<AIMentalWellnessApp/>}></Route>
         <Route path="/games" element={<GamesHub />}></Route>
+         <Route path="/cosmic" element={<CosmicDefender />}></Route>
         </Routes>
     </BrowserRouter>
     </HabitBlockchainProvider>
