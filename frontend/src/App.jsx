@@ -13,6 +13,14 @@ import CosmicDefender from './components/CosmicDefender'
 import Game from './pages/game1'
 import FocusTracker from './components/Focus'
 import MeditationHome from './pages/MediHome'
+import EyeDetectionTimer from './components/EyeMonitor'
+import Dashboard from './pages/dashboard'
+import AIMentalWellnessApp from './pages/Aiwellness'
+import GamesHub from './pages/Games'
+import CosmicDefender from './components/CosmicDefender'
+import Game from './pages/game1'
+import FocusTracker from './components/Focus'
+import MeditationHome from './pages/MediHome'
 import FocusTracker from './components/Focus'
 import MeditationHome from './pages/MediHome'
 import HealthSyncDashboard from './pages/fitbit'
@@ -29,6 +37,14 @@ function App() {
          <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/meditate" element={<EyeDetectionTimer />}></Route>
+        <Route path="/usedash" element={<Dashboard/>}></Route>
+        <Route path="/wellness" element={<AIMentalWellnessApp/>}></Route>
+        <Route path="/games" element={<GamesHub />}></Route>
+         <Route path="/cosmic" element={<CosmicDefender />}></Route>
+         <Route path="/fruit" element={<Game />}></Route>
+         <Route path="/focus" element={<FocusTracker />}></Route>
+         <Route path="/medihome" element={<MeditationHome />} />
         <Route path="/meditate" element={<EyeDetectionTimer />}></Route>
         <Route path="/usedash" element={<Dashboard/>}></Route>
         <Route path="/wellness" element={<AIMentalWellnessApp/>}></Route>
