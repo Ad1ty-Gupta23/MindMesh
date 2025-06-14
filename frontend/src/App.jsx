@@ -16,6 +16,7 @@ function App() {
          <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/meditate" element={<EyeDetectionTimer />}></Route>
         </Routes>
     </BrowserRouter>
     </HabitBlockchainProvider>
