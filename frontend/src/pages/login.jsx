@@ -1,14 +1,16 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { auth, db } from "../utils/firebase";
 import { useHabitBlockchain } from "../context/HabitBlockchainContext";
 
 function Login() {
   const navigate = useNavigate();
-  const [values, setValues] = useState({ username: "", password: "" });
+  const [values, setValues] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { activateTherapistOnChain } = useHabitBlockchain();
@@ -28,16 +30,28 @@ function Login() {
     setError("");
 
     try {
-      const res = await axios.post("http://localhost:5000/api/user/login", values);
-      if (res.data.success) {
-        const user = res.data.user;
+      // Sign in with Firebase Auth
+      const userCredential = await signInWithEmailAndPassword(auth, values.email, values.password);
+      const firebaseUser = userCredential.user;
+
+      // Get additional user data from Firestore
+      const userDoc = await getDoc(doc(db, "users", firebaseUser.uid));
+      
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        const user = {
+          uid: firebaseUser.uid,
+          email: firebaseUser.email,
+          ...userData
+        };
+        
         updateUser(user);
         toast.success("Login successful!");
       
         // If user has therapist name, activate on blockchain
         if (user.therapistName && user.therapistName.trim()) {
           try {
-            await activateTherapistOnChain(); // marks therapist active on blockchain
+            await activateTherapistOnChain();
             toast.success("Therapist status activated on-chain");
           } catch (err) {
             console.error("Error activating therapist on blockchain:", err);
@@ -45,19 +59,38 @@ function Login() {
           }
         }
         
-        // Navigate to main dashboard
         navigate("/");
-      }
-      else {
-        setError(res.data.message || "Login failed. Please try again.");
-        toast.error(res.data.message || "Login failed");
+      } else {
+        setError("User data not found. Please contact support.");
+        toast.error("User data not found");
       }
     } catch (err) {
       console.error("Login error:", err);
-      setError(
-        err.response?.data?.message || "Login failed. Please try again."
-      );
-      toast.error(err.response?.data?.message || "Login failed");
+      let errorMessage = "Login failed. Please try again.";
+      
+      // Handle specific Firebase Auth errors
+      switch (err.code) {
+        case 'auth/user-not-found':
+          errorMessage = "No account found with this email address.";
+          break;
+        case 'auth/wrong-password':
+          errorMessage = "Incorrect password. Please try again.";
+          break;
+        case 'auth/invalid-email':
+          errorMessage = "Please enter a valid email address.";
+          break;
+        case 'auth/user-disabled':
+          errorMessage = "This account has been disabled.";
+          break;
+        case 'auth/too-many-requests':
+          errorMessage = "Too many failed attempts. Please try again later.";
+          break;
+        default:
+          errorMessage = err.message || errorMessage;
+      }
+      
+      setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -84,12 +117,12 @@ function Login() {
           <Form onSubmit={handleSubmit}>
             <InputGroup>
               <InputWrapper>
-                <UserIcon>👤</UserIcon>
+                <EmailIcon>📧</EmailIcon>
                 <StyledInput
-                  type="text"
-                  name="username"
-                  placeholder="Username"
-                  value={values.username}
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={values.email}
                   onChange={handleChange}
                   required
                 />
@@ -335,7 +368,7 @@ const InputWrapper = styled.div`
   align-items: center;
 `;
 
-const UserIcon = styled.span`
+const EmailIcon = styled.span`
   position: absolute;
   left: 1rem;
   font-size: 1.2rem;

@@ -5,7 +5,9 @@ import styled, { keyframes } from "styled-components";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useHabitBlockchain } from "../context/HabitBlockchainContext";
-
+import { auth, db } from "../utils/firebase"; // Import Firebase auth and firestore
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 // Move all styled components outside the main component
 const Container = styled.div`
   min-height: 100vh;
@@ -695,7 +697,7 @@ const InputHint = styled.div`
 // Main Register Component
 // Main Register Component
 export default function Register() {
-  const navigate = useNavigate();
+   const navigate = useNavigate();
   const {
     isConnected,
     connectWallet,
@@ -799,31 +801,74 @@ export default function Register() {
   const completeRegistration = useCallback(async () => {
     setIsLoading(true);
     try {
-      const { confirmPassword, ...userData } = values;
-      
-      const res = await axios.post(
-        "http://localhost:5000/api/user/register",
-        {
-          ...userData,
-          blockchainEnabled: blockchainValues.enableBlockchain,
-          initialStake: blockchainValues.stakeAmount || "0",
-          therapistName: blockchainValues.therapistName || ""
-        }
+      // Create user with Firebase Auth
+      const userCredential = await createUserWithEmailAndPassword(
+        auth, 
+        values.email, 
+        values.password
       );
+      
+      const user = userCredential.user;
 
-      if (res.status === 201) {
-        toast.success("Registration successful! Please login.");
-        navigate("/login");
-      } else {
-        setError(res.data.message || "Registration failed. Please try again.");
-        toast.error(res.data.message || "Registration failed");
-      }
+      // Update the user's display name
+      await updateProfile(user, {
+        displayName: values.username
+      });
+
+      // Create user document in Firestore
+      const userDocRef = doc(db, "users", user.uid);
+      await setDoc(userDocRef, {
+        uid: user.uid,
+        username: values.username,
+        email: values.email,
+        blockchainEnabled: blockchainValues.enableBlockchain,
+        initialStake: blockchainValues.stakeAmount || "0",
+        therapistName: blockchainValues.therapistName || "",
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+        // Additional user fields
+        isTherapist: !!blockchainValues.therapistName.trim(),
+        profileCompleted: true,
+        preferences: {
+          notifications: true,
+          darkMode: false,
+          language: "en"
+        },
+        stats: {
+          totalHabits: 0,
+          completedHabits: 0,
+          currentStreak: 0,
+          longestStreak: 0
+        }
+      });
+
+      toast.success("Registration successful! Please login.");
+      navigate("/login");
+      
     } catch (err) {
       console.error("Registration error:", err);
-      setError(
-        err.response?.data?.message || "Registration failed. Please try again."
-      );
-      toast.error(err.response?.data?.message || "Registration failed");
+      let errorMessage = "Registration failed. Please try again.";
+      
+      // Handle specific Firebase Auth errors
+      switch (err.code) {
+        case 'auth/email-already-in-use':
+          errorMessage = "Email is already registered. Please use a different email.";
+          break;
+        case 'auth/weak-password':
+          errorMessage = "Password is too weak. Please choose a stronger password.";
+          break;
+        case 'auth/invalid-email':
+          errorMessage = "Please provide a valid email address.";
+          break;
+        case 'auth/operation-not-allowed':
+          errorMessage = "Email/password registration is not enabled.";
+          break;
+        default:
+          errorMessage = err.message || errorMessage;
+      }
+      
+      setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }
