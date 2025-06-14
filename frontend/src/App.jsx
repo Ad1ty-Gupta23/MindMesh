@@ -13,17 +13,7 @@ import CosmicDefender from './components/CosmicDefender'
 import Game from './pages/game1'
 import FocusTracker from './components/Focus'
 import MeditationHome from './pages/MediHome'
-import EyeDetectionTimer from './components/EyeMonitor'
-import Dashboard from './pages/dashboard'
-import AIMentalWellnessApp from './pages/Aiwellness'
-import GamesHub from './pages/Games'
-import CosmicDefender from './components/CosmicDefender'
-import Game from './pages/game1'
-import FocusTracker from './components/Focus'
-import MeditationHome from './pages/MediHome'
-import FocusTracker from './components/Focus'
-import MeditationHome from './pages/MediHome'
-import HealthSyncDashboard from './pages/fitbit'
+// import HealthSyncDashboard from './pages/fitbit'
 import Aimirror from './pages/Aimiiror'
 // import FocusProductivityTracker from './pages/tracker'
 function App() {
@@ -55,7 +45,7 @@ function App() {
          <Route path="/medihome" element={<MeditationHome />} />
          <Route path="/focus" element={<FocusTracker />}></Route>
          <Route path="/medihome" element={<MeditationHome />} />
-         <Route path="/fit" element={<HealthSyncDashboard/>}></Route>
+         {/* <Route path="/fit" element={<HealthSyncDashboard/>}></Route> */}
         <Route path="/mirror" element={<Aimirror/>}></Route> 
         </Routes>
     </BrowserRouter>
