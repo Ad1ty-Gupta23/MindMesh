@@ -17,6 +17,7 @@ import MeditationHome from './pages/MediHome'
 import Aimirror from './pages/Aimiiror'
 
 import MoodTimelineApp from './pages/mood'
+import WellnessLeaderboard from './pages/leaderboard'
 // import FocusProductivityTracker from './pages/tracker'
 function App() {
  
@@ -50,6 +51,7 @@ function App() {
          {/* <Route path="/fit" element={<HealthSyncDashboard/>}></Route> */}
         <Route path="/mirror" element={<Aimirror/>}></Route> 
         <Route path="/mood" element={<MoodTimelineApp/>}></Route>
+         <Route path="/leader" element={<WellnessLeaderboard/>}></Route>
         </Routes>
     </BrowserRouter>
     </HabitBlockchainProvider>
