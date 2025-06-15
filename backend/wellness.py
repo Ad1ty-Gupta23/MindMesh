@@ -339,3 +339,4 @@ if __name__ == "__main__":
     print("📊 Health Check: http://localhost:8001/health")
     print("💡 Focus: Personalized AI Chat Responses Only")
     uvicorn.run(app, host="0.0.0.0", port=8001, reload=True)
+    #uvicorn wellness:app --reload --port 8001
