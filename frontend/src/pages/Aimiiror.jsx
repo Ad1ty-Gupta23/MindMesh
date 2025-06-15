@@ -30,7 +30,7 @@ const Aimirror = () => {
   const [transcript, setTranscript] = useState("");
 
   // API Base URL
-  const API_BASE = "http://localhost:8003";
+  const API_BASE = "http://localhost:8002";
 
   // Initialize speech recognition
   useEffect(() => {
