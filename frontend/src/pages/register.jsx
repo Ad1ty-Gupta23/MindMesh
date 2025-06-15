@@ -942,7 +942,7 @@ export default function Register() {
               <GradientText> Journey</GradientText>
             </WelcomeTitle>
             <WelcomeDescription>
-              Join thousands of users who have transformed their productivity and well-being with TriFocus
+              Join thousands of users who have transformed their productivity and well-being with MindMesh
             </WelcomeDescription>
             <BenefitsList>
               <Benefit>
@@ -968,7 +968,7 @@ export default function Register() {
         <FormCard>
           <LogoSection>
             <LogoIcon>✦</LogoIcon>
-            <BrandName>TriFocus</BrandName>
+            <BrandName>MindMesh</BrandName>
             <Subtitle>
               {currentStep === 1 ? "Create your account" : "Blockchain Setup (Optional)"}
             </Subtitle>

@@ -108,7 +108,7 @@ function Login() {
         <FormCard>
           <LogoSection>
             <LogoIcon>✦</LogoIcon>
-            <BrandName>TriFocus</BrandName>
+            <BrandName>MindMesh</BrandName>
             <Subtitle>Welcome back</Subtitle>
           </LogoSection>
 
@@ -162,7 +162,7 @@ function Login() {
           </Divider>
           
           <SignupSection>
-            <SignupText>New to TriFocus?</SignupText>
+            <SignupText>New to MindMesh?</SignupText>
             <SignupLink to="/register">Create an account</SignupLink>
           </SignupSection>
         </FormCard>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { ChevronRight, Brain, Heart, BookOpen, Users, Star, Play, Pause, Volume2, Settings } from "lucide-react";
 import Navbar from "../components/Navbar"; // Assuming you have a Navbar component
+import Chatbot from "../components/Chatbot";
+
 
 function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -55,6 +57,7 @@ function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-indigo-50 font-sans antialiased overflow-x-hidden">
+      <Chatbot/>
       {/* Floating Orbs Background */}
       <div className="fixed inset-0 pointer-events-none">
         <div 
