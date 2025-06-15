@@ -15,7 +15,8 @@ import FocusTracker from './components/Focus'
 import MeditationHome from './pages/MediHome'
 // import HealthSyncDashboard from './pages/fitbit'
 import Aimirror from './pages/Aimiiror'
-import MoodTimelineInsights from './pages/mood'
+
+import MoodTimelineApp from './pages/mood'
 // import FocusProductivityTracker from './pages/tracker'
 function App() {
  
@@ -48,7 +49,7 @@ function App() {
          <Route path="/medihome" element={<MeditationHome />} />
          {/* <Route path="/fit" element={<HealthSyncDashboard/>}></Route> */}
         <Route path="/mirror" element={<Aimirror/>}></Route> 
-        <Route path="/mood" element={<MoodTimelineInsights/>}></Route>
+        <Route path="/mood" element={<MoodTimelineApp/>}></Route>
         </Routes>
     </BrowserRouter>
     </HabitBlockchainProvider>
