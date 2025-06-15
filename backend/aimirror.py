@@ -287,3 +287,4 @@ async def get_ai_feedback(data: dict):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8003)
+    #uvicorn aimirror:app --reload --port 8003
